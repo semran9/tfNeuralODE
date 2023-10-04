@@ -2,16 +2,28 @@ library(torch)
 
 euler_update <- function(h_list, dh_list, dt) {
   output = list()
-  for(i in length(h_list)){
+  for(i in 1:length(h_list)){
     h <- h_list[[i]]
     dh<- dh_list[[i]]
-    output<- append(output, h + dt * dh)
+    output<- c(output, h + (dt * dh))
   }
   return(output)
 }
 
 euler_step <- function(func, dt, state) {
-  derivatives <- func(test)
-  updated_state <- euler_update(state, derivatives, dt)
-  return(updated_state)
+  dh <- list(1.0, func(state[[2]]))
+  updated_state <- euler_update(state, dh, dt)
+  return((updated_state))
 }
+
+update = euler_step(tensor_ode_fun,  dt = 0.025, state = list(tf$cast(1.0, dtype = tf$float32), tf$cast(t(as.matrix(true_y0)), dtype = tf$float32)))
+tensor_ode_fun<- function(u){
+  r = u ^ 3
+  r = tf$cast((r), dtype = tf$float32)
+  true_A = tf$cast(rbind(c(-0.1, 2.0), c(-2.0, -0.1)), dtype = tf$float32)
+  du <- tf$matmul(r, true_A)
+  return(du)
+}
+tensor_ode_fun(list(tf$cast(0.0, dtype = tf$float32), tf$cast(t(as.matrix(true_y0)), dtype = tf$float32)))
+
+forward(tensor_ode_fun, tf$cast(t(as.matrix(true_y0)), dtype = tf$float32), tsteps)
