@@ -10,7 +10,7 @@ rk4_step<- function(func, dt, state){
   }
   return(output)
 }
-update = rk4_step(model,  dt = 0.025, state = list(tf$cast(1.0, dtype = tf$float32), tf$cast((as.matrix(true_y0)), dtype = tf$float32)))
-z = euler_update(list(tf$cast(0.0, dtype = tf$float32), tf$cast(t(as.matrix(true_y0)), dtype = tf$float32)), z, 0.025 / 2)
-z = tensor_ode_fun(list(tf$cast(0.0, dtype = tf$float32), tf$cast(t(as.matrix(true_y0)), dtype = tf$float32)))
-z
+#update = rk4_step(model,  dt = 0.025, state = list(tf$cast(1.0, dtype = tf$float32), tf$cast((as.matrix(true_y0)), dtype = tf$float32)))
+#z = euler_update(list(tf$cast(0.0, dtype = tf$float32), tf$cast(t(as.matrix(true_y0)), dtype = tf$float32)), z, 0.025 / 2)
+#z = tensor_ode_fun(list(tf$cast(0.0, dtype = tf$float32), tf$cast(t(as.matrix(true_y0)), dtype = tf$float32)))
+

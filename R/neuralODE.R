@@ -15,7 +15,7 @@ library(keras)
 # }
 
 
-forward <- function(model, inputs, tsteps, return_states = TRUE) {
+forward <- function(model, inputs, tsteps, return_states = FALSE) {
   # Define the forward dynamics function
   states <- list()
   inputs_tensor<- tf$cast(as.matrix(inputs), dtype = tf$float32)
@@ -54,8 +54,7 @@ backward <- function(model, t, outputs, output_gradients = NULL) {
     output_gradients <- tf$zeros_like(outputs)
   }
 
-  state <- list(t0, outputs, output_gradients)
-  state <- list_append(state, grad_weights)
+  state <- list(t0, outputs, output_gradients, grad_weights, model)
 
   for (dt in rev(delta_t)) {
     state <- rk4_step(backward_dynamics, dt = -dt, state = state)
@@ -63,21 +62,27 @@ backward <- function(model, t, outputs, output_gradients = NULL) {
 
   inputs <- state[[2]]
   dLdInputs <- state[[3]]
-  dLdWeights <- state[4:(length(state))]
+  dLdWeights <- state[[4]]
 
   return(list(inputs, dLdInputs, dLdWeights))
 }
 
-backward_dynamics<- function(model, state){
-  t = state[1]
-  ht = state[2]
-  at = -state[3]
-  g = tf$GradientTape
-  g.watch(ht)
-  ht_new = model(inputs=list(t, ht))
+backward_dynamics<- function(state){
+  t = state[[1]]
+  ht = state[[2]]
+  at = -state[[3]]
+  model = state[[5]]
+  ht_tensor = tf$cast((as.matrix(ht)), dtype = tf$float32)
+  with(tf$GradientTape() %as% g, {
+    g$watch(ht_tensor)
+    ht_new = model(ht_tensor)
+  })
+  ht_variable = tf$Variable(ht_tensor)
+  ht_new<- tf$Variable(ht_new)
 
+  weights = model$weights[seq(1, length(model$weights)) %% 2 != 0]
   gradients = g$gradient(
-    target=ht_new, sources=list(ht) + model$weights,
+    target=ht_new, sources=ht_variable + weights,
     output_gradients=at
   )
 
