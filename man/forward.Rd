@@ -21,3 +21,28 @@ solution of the forward pass of Neural ODE
 \description{
 Forward pass of the Neural ODE network
 }
+\examples{
+# example code
+library(tensorflow)
+library(keras)
+
+OdeModel(keras$Model) \%py_class\% {
+ initialize <- function() {
+   super$initialize()
+   self$block_1 <- layer_dense(units = 50, activation = 'tanh')
+   self$block_2 <- layer_dense(units = 2, activation = 'linear')
+ }
+
+ call <- function(inputs) {
+   x<- inputs ^ 3
+   x <- self$block_1(x)
+   self$block_2(x)
+ }
+}
+tsteps <- seq(0, 2.5, by = 2.5/10)
+true_y0 = t(c(2., 0.))
+model<- OdeModel()
+forward(model, true_y0, tsteps)
+
+
+}

@@ -9,6 +9,8 @@ Description: This package implements a framework for the use of Neural ODEs with
     and present a novel way of using differential systems to model data.
 License: MIT + file LICENSE
 Encoding: UTF-8
-Imports: tensorflow
-LazyData: true
+Imports: tensorflow, keras
 RoxygenNote: 7.2.3
+Suggests: 
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
