@@ -72,6 +72,9 @@ helper_func_back<- function(w){
 #' @return The gradient of loss with respect to the inputs for use with the Adjoint Method.
 #' @return The gradients of loss the neural ODE.
 #' @export
+#' @examples
+#' # example code
+#'
 
 backward <- function(model, tsteps, outputs, output_gradients = NULL) {
   grad_weights <- lapply(model$weights, helper_func_back)

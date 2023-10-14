@@ -1,4 +1,4 @@
-#' A Euler method updater.
+#' A Euler method state updater.
 #' @param h_list The initial state of the ODE.
 #' @param dh_list description
 #' @param dt The time step to update the initial state with.
@@ -15,7 +15,8 @@ euler_update <- function(h_list, dh_list, dt) {
 #' A function to employ the Euler Method to solve an ODE.
 #' @param func The derivative function.
 #' @param dt The time step for the Euler solver.
-#' @param state A list that defines the current state of the ODE.
+#' @param state A list that defines the current state of the ODE, with one entry
+#' being a number, and the other being a tensor which describes the function state.
 #' @returns A list that describes the updated state of the ODE.
 #'
 euler_step <- function(func, dt, state) {

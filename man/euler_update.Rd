@@ -2,7 +2,7 @@
 % Please edit documentation in R/eulermethod.R
 \name{euler_update}
 \alias{euler_update}
-\title{A Euler method updater.}
+\title{A Euler method state updater.}
 \usage{
 euler_update(h_list, dh_list, dt)
 }
@@ -17,5 +17,5 @@ euler_update(h_list, dh_list, dt)
 The updated state of the ODE.
 }
 \description{
-A Euler method updater.
+A Euler method state updater.
 }

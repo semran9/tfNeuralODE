@@ -11,7 +11,8 @@ euler_step(func, dt, state)
 
 \item{dt}{The time step for the Euler solver.}
 
-\item{state}{A list that defines the current state of the ODE.}
+\item{state}{A list that defines the current state of the ODE, with one entry
+being a number, and the other being a tensor which describes the function state.}
 }
 \value{
 A list that describes the updated state of the ODE.
