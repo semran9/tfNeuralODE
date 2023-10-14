@@ -1,4 +1,5 @@
 test_that("Euler solver and Euler update works", {
+  install_tensorflow()
   ode_fun<- function(u){
     r = u ^ 3
     true_A = rbind(c(-0.1, 2.0), c(-2.0, -0.1))
@@ -12,6 +13,7 @@ test_that("Euler solver and Euler update works", {
 })
 
 test_that("Rk4 solver works", {
+  install_tensorflow()
   ode_fun<- function(u){
     r = u ^ 3
     true_A = rbind(c(-0.1, 2.0), c(-2.0, -0.1))
