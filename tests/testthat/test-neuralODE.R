@@ -1,4 +1,3 @@
-#' @import reticulate
 skip_if_no_tf <- function() {
   have_tf <- reticulate::py_module_available("tensorflow")
   if (!have_tf)

@@ -3,4 +3,5 @@
 export(backward)
 export(forward)
 import(keras)
+import(reticulate)
 import(tensorflow)
