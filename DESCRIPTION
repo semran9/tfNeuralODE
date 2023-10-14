@@ -7,7 +7,7 @@ Maintainer: Shayaan Emran <shayaan.emran@gmail.com>
 Description: This package implements a framework for the use of Neural ODEs with 
     R Tensorflow. The concept of Neural ODEs come from <doi:10.48550/arXiv.1806.07366>,
     and present a novel way of using differential systems to model data.
-License: What license is it under?
+License: MIT + file LICENSE
 Encoding: UTF-8
 Imports: tensorflow
 LazyData: true
