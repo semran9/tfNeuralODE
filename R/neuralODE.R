@@ -9,6 +9,7 @@
 #' @export
 #' @examples
 #' # example code
+#' \dontrun{
 #' library(tensorflow)
 #' library(keras)
 #'
@@ -29,7 +30,7 @@
 #' true_y0 = t(c(2., 0.))
 #' model<- OdeModel()
 #' forward(model, true_y0, tsteps)
-#'
+#' }
 #'
 
 forward <- function(model, inputs, tsteps, return_states = FALSE) {
