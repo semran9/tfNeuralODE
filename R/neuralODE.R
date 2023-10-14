@@ -1,19 +1,11 @@
-library(tensorflow)
-library(keras)
-
-# forward_dynamics <- function(state, model) {
-#   # Used in solver _state == (time, tensor)
-#   return(list(1.0, model(inputs = state)))
-# }
-# f_d<- list(1.0, model(inputs = state))
-#
-#
-# append_state <- function(states, state) {
-#   tensors <- state[[2]]
-#   states <- c(states, tensors)
-#   return(states)
-# }
-
+#' Forward pass of the Neural ODE network
+#' @param model A keras neural network that defines the Neural ODE.
+#' @param inputs Matrix or vector inputs to the neural network.
+#' @param tsteps A vector of each time step upon which the Neural ODE is solved to get to the final solution.
+#' @param return_states A boolean which dictates whether the intermediary states between the input and the final solution are returned.
+#' @import tensorflow
+#' @return solution of the forward pass of Neural ODE
+#'
 
 forward <- function(model, inputs, tsteps, return_states = FALSE) {
   # Define the forward dynamics function
@@ -28,7 +20,7 @@ forward <- function(model, inputs, tsteps, return_states = FALSE) {
 
   # Iterate over time intervals
   for (dt in delta_t) {
-    state <- rk4_step(f = model, state = state, dt = dt)
+    state <- rk4_step(func = model, state = state, dt = dt)
     states<- c(states, list(state[[2]]))
     next
   }
@@ -42,17 +34,28 @@ forward <- function(model, inputs, tsteps, return_states = FALSE) {
   return(outputs)
 }
 helper_func_back<- function(w){
-  return(tf$zeros_like(w))
+  return(tensorflow::tf$zeros_like(w))
 }
+
+#' Backward pass of the Neural ODE
+#' @param model A keras neural network that defines the Neural ODE.
+#' @param tsteps A vector of each time step upon which the Neural ODE is solved to get to the final solution.
+#' @param outputs The tensor outputs of the forward pass of the Neural ODE.
+#' @param output_gradients The tensor gradients of the loss function.
+#' @import tensorflow
+#' @return The model input at the last time step.
+#' @return The gradient of loss with respect to the inputs for use with the Adjoint Method.
+#' @return The gradients of loss the neural ODE.
+#'
 
 backward <- function(model, tsteps, outputs, output_gradients = NULL) {
   grad_weights <- lapply(model$weights, helper_func_back)
 
-  t0 <- tf$cast(tsteps[length(tsteps)], dtype = tf$float32)
+  t0 <- tensorflow::tf$cast(tsteps[length(tsteps)], dtype = tensorflow::tf$float32)
   delta_t <- tsteps[2:(length(tsteps))] - tsteps[1:(length(tsteps)-1)]
 
   if (is.null(output_gradients)) {
-    output_gradients <- tf$zeros_like(outputs)
+    output_gradients <- tensorflow::tf$zeros_like(outputs)
   }
 
   state <- c(t0, outputs, output_gradients, grad_weights)
@@ -69,12 +72,17 @@ backward <- function(model, tsteps, outputs, output_gradients = NULL) {
   return(list(inputs, dLdInputs, dLdWeights))
 }
 
+#' Solve the backwards dynamics of the Neural ODE
+#' @param state The current state of the differential equation
+#' @param model The neural network that defines the Neural ODE.
+#' @returns Returns a list of the number 1, the new backwards state of the differential equation and the gradients calculated for the network.
+
 backward_dynamics<- function(state, model){
   t = state[[1]]
   ht = state[[2]]
   at = -state[[3]]
-  ht_tensor = tf$cast((as.matrix(ht)), dtype = tf$float32)
-  with(tf$GradientTape() %as% g, {
+  ht_tensor = tensorflow::tf$cast((as.matrix(ht)), dtype = tensorflow::tf$float32)
+  with(tensorflow::tf$GradientTape() %as% g, {
     g$watch(ht_tensor)
     ht_new = model(ht_tensor)
   })
@@ -87,7 +95,11 @@ backward_dynamics<- function(state, model){
   return(c(1, ht_new, gradients))
 }
 
-
+#' Custom RK4 solver for solving the backward pass of the Neural ODE.
+#' @param backward_dynamics The backward dynamics function for the Neural ODE.
+#' @param dt The time step to solve the ODE on.
+#' @param state The current state of the differential equation.
+#' @param model The neural network that defines the Neural ODE.
 
 rk4_step_backwards<- function(backward_dynamics, dt, state, model){
   k1 <- backward_dynamics(state, model)

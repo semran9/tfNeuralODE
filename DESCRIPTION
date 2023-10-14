@@ -1,11 +1,14 @@
 Package: tfNeuralODE
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Use R Tensorflow to create Neural Ordinary Differential Equations
 Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
+Author: Shayaan Emran
+Maintainer: Shayaan Emran <shayaan.emran@gmail.com>
+Description: This package implements a framework for the use of Neural ODEs with 
+    R Tensorflow. The concept of Neural ODEs come from <doi:10.48550/arXiv.1806.07366>,
+    and present a novel way of using differential systems to model data.
 License: What license is it under?
 Encoding: UTF-8
+Imports: tensorflow
 LazyData: true
+RoxygenNote: 7.2.3
