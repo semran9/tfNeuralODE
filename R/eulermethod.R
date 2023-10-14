@@ -1,4 +1,4 @@
-library(torch)
+library(tensorflow)
 
 euler_update <- function(h_list, dh_list, dt) {
   output = list()
