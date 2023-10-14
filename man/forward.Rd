@@ -23,8 +23,11 @@ Forward pass of the Neural ODE network
 }
 \examples{
 # example code
+\dontrun{
 library(tensorflow)
 library(keras)
+# install_keras()
+#install_tensorflow()
 
 OdeModel(keras$Model) \%py_class\% {
  initialize <- function() {
@@ -43,6 +46,6 @@ tsteps <- seq(0, 2.5, by = 2.5/10)
 true_y0 = t(c(2., 0.))
 model<- OdeModel()
 forward(model, true_y0, tsteps)
-
+}
 
 }

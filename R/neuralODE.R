@@ -12,8 +12,8 @@
 #' \dontrun{
 #' library(tensorflow)
 #' library(keras)
-#' install_keras()
-#' install_tensorflow()
+#' # install_keras()
+#' #install_tensorflow()
 #'
 #' OdeModel(keras$Model) %py_class% {
 #'  initialize <- function() {
