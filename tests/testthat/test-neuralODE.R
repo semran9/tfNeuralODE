@@ -1,5 +1,11 @@
+#' @import reticulate
+skip_if_no_tf <- function() {
+  have_tf <- reticulate::py_module_available("tensorflow")
+  if (!have_tf)
+    skip("tensorflow not available for testing")
+}
 test_that("Euler solver and Euler update works", {
-  install_tensorflow()
+  skip_if_no_tf()
   ode_fun<- function(u){
     r = u ^ 3
     true_A = rbind(c(-0.1, 2.0), c(-2.0, -0.1))
@@ -13,7 +19,7 @@ test_that("Euler solver and Euler update works", {
 })
 
 test_that("Rk4 solver works", {
-  install_tensorflow()
+  skip_if_no_tf()
   ode_fun<- function(u){
     r = u ^ 3
     true_A = rbind(c(-0.1, 2.0), c(-2.0, -0.1))

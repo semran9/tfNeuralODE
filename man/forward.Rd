@@ -26,8 +26,9 @@ Forward pass of the Neural ODE network
 \dontrun{
 library(tensorflow)
 library(keras)
-# install_keras()
+#install_keras()
 #install_tensorflow()
+skip_if_no_tf()
 
 OdeModel(keras$Model) \%py_class\% {
  initialize <- function() {
