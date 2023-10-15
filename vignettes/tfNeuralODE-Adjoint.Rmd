@@ -21,10 +21,15 @@ library(reticulate)
 if(!py_available()){
   install_python()
 }
+#checking for tensorflow installation
+if(!py_module_available("tensorflow")){
+  install_tensorflow()
+}
 library(tfNeuralODE)
 library(keras)
 library(tensorflow)
 library(deSolve)
+
 # iterations, time span (layers)
 niters = 25
 t = seq(0, 25, by = 25/100)

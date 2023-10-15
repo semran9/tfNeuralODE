@@ -22,11 +22,16 @@ library(reticulate)
 if(!py_available()){
   install_python()
 }
+#checking for tensorflow and keras installation
+if(!py_module_available("tensorflow")){
+  install_tensorflow()
+}
 
 library(tfNeuralODE)
 library(keras)
 library(tensorflow)
 library(deSolve)
+
 # constants
 data_size = 1000
 batch_time = 20 # this seems to works the best ...
