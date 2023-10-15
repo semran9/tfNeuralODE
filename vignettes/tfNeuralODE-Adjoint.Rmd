@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 
 In this example, we're going to train a simple network to learn a spiral using the adjoint method. We start by loading all of the libraries and setting our initial conditions, along with a few constants.
 
-```{r setup}
+```{r, results=FALSE}
 library(reticulate)
 if(!py_available()){
   install_python()

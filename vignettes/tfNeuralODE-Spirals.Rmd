@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 
 This vignette runs through a small example of how to use tfNeuralODE to learn differential equations. We start by importing all of the correct packages, and instantiating a few constants.
 
-```{r setup}
+```{r}
 # initial checks for python
 library(reticulate)
 if(!py_available()){
