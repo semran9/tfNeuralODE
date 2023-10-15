@@ -7,13 +7,22 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
+```{r, include = FALSE}
+has_tensorflow<- reticulate::py_module_available("tensorflow")
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  eval = has_tensorflow
+)
+```
+```{r, eval = !has_tensorflow, echo =FALSE}
+print("No Tensorflow installation detected. Code will not be run.")
 
-
+```
 
 This vignette runs through a small example of how to use tfNeuralODE to learn differential equations. We start by importing all of the correct packages, and instantiating a few constants.
 
-
-```r
+```{r}
 # initial checks for python
 library(reticulate)
 if(!py_available()){
@@ -39,8 +48,7 @@ batch_size = 16
 
 Now we create the neural network that will define our system. We also instantiate a few more constants that define our system.
 
-
-```r
+```{r}
 # ODE Model with time input
 
 OdeModel(keras$Model) %py_class% {
@@ -65,8 +73,7 @@ true_A = rbind(c(-0.1, 2.0), c(-2.0, -0.1))
 
 Now we solve the ODE and plot our results.
 
-
-```r
+```{r}
 # solving a spiral ode
 trueODEfunc<- function(du, u, p, t){
   true_A = rbind(c(-0.1, 2.0), c(-2.0, -0.1))
@@ -80,8 +87,7 @@ prob_trueode <- lsode(func = trueODEfunc, y = true_y0, times = tsteps)
 
 Let's start looking at how we're going to train our model. We instantiate an optimizer and create a batching function.
 
-
-```r
+```{r}
 #optimizer
 optimizer = tf$keras$optimizers$legacy$Adam(learning_rate = 1e-3)
 
@@ -97,8 +103,7 @@ get_batch<- function(prob_trueode, tsteps){
 ```
 
 Now we can train our neural ODE, using naive backpropagation.
-
-```r
+```{r}
 # Training Neural ODE
 for(i in 1:niters){
   #print(paste("Iteration", i, "out of", niters, "iterations."))
@@ -124,5 +129,3 @@ for(i in 1:niters){
   }
 }
 ```
-
-![plot of the final result](unnamed-chunk-7-1.png)
