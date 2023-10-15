@@ -1,8 +1,8 @@
 ## R CMD check results
 
-0 errors | 0 warnings | 3 notes
+0 errors | 0 warnings | 4 notes
 
-These notes only appear on Windows (Server 2022, R-devel 64-bit).
+### The following 2 notes only appear on Windows (Server 2022, R-devel 64-bit).
 
 ```
  * checking for detritus in the temp directory ... NOTE
@@ -20,17 +20,20 @@ Found the following files/directories:
 ```
 This also seems to be an issue with R-hub, as noted here: [R-hub issue #560](https://github.com/r-hub/rhub/issues/560)
 
+### The following note only appears on Fedora Linux (R-devel, clang, gfortran)
+
+```
+ * checking HTML version of manual ... NOTE
+Skipping checking HTML validation: no command 'tidy' found
+```
+
+The HTML version of the manual is able to be validated locally and on Windows (Server 2022, R-devel 64-bit). This error does not seem critical.
+
+### The following note appears in some form for all operating systems, as this is a new submission.
+
 ```
  * checking CRAN incoming feasibility ... NOTE
 Maintainer: 'Shayaan Emran <shayaan.emran@gmail.com>'
 
 New submission
-
-Possibly misspelled words in DESCRIPTION:
-  Keras (8:50)
-  Tensorflow (3:59, 8:35)
-  al (9:55)
-  et (9:52)''
 ```
-
-* This is a new release.
