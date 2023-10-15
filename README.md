@@ -4,6 +4,8 @@
 # tfNeuralODE
 
 <!-- badges: start -->
+
+[![R-CMD-check](https://github.com/semran9/tfNeuralODE/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/semran9/tfNeuralODE/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 The goal of tfNeuralODE is to provide an easy framework surrounding the

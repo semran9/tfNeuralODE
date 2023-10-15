@@ -16,6 +16,7 @@ knitr::opts_chunk$set(
 # tfNeuralODE
 
 <!-- badges: start -->
+[![R-CMD-check](https://github.com/semran9/tfNeuralODE/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/semran9/tfNeuralODE/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 The goal of tfNeuralODE is to provide an easy framework surrounding the use of Neural Ordinary Differential Equations in R. This package does so by building on top of R Tensorflow, to help wth auto-differentiation and the construction of neural network models with Keras. Examples of this package in use can be found on the project website.
