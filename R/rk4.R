@@ -5,6 +5,7 @@
 #' being 1, and the second being a tensor that represents state
 #' @returns A list containing a new time and the numerical integration of of the
 #' function across the time step to the new time.
+#' @import tensorflow
 #' @examplesIf reticulate::py_available()
 #' reticulate::py_module_available("tensorflow")
 #'
@@ -16,7 +17,7 @@
 #'   du <- r %*% (true_A)
 #'   return(as.matrix(du))
 #' }
-#' y<- tf$cast(t(as.matrix(c(2, 0))), dtype = tf$float32)
+#' y<- tensorflow::tf$cast(t(as.matrix(c(2, 0))), dtype = tf$float32)
 #' x<- rk4_step(ode_fun,  dt = 0.25,
 #'             state = list(1.0, y))
 #' x
