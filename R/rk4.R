@@ -8,7 +8,6 @@
 #' @import tensorflow
 #' @examplesIf reticulate::py_available()
 #' reticulate::py_module_available("tensorflow")
-#'
 #' # example code
 #' library(tensorflow)
 #' ode_fun<- function(u){

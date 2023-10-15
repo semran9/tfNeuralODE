@@ -22,15 +22,19 @@ function across the time step to the new time.
 Runge Kutta solver for ordinary differential equations
 }
 \examples{
+\dontshow{if (reticulate::py_available()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+reticulate::py_module_available("tensorflow")
 # example code
+library(tensorflow)
 ode_fun<- function(u){
   r = u ^ 3
   true_A = rbind(c(-0.1, 2.0), c(-2.0, -0.1))
   du <- r \%*\% (true_A)
   return(as.matrix(du))
 }
-y<- tf$cast(t(as.matrix(c(2, 0))), dtype = tf$float32)
+y<- tensorflow::tf$cast(t(as.matrix(c(2, 0))), dtype = tf$float32)
 x<- rk4_step(ode_fun,  dt = 0.25,
             state = list(1.0, y))
 x
+\dontshow{\}) # examplesIf}
 }

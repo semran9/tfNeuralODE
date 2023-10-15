@@ -7,14 +7,13 @@
 #' @import keras
 #' @return solution of the forward pass of Neural ODE
 #' @export
-#' @examples
+#' @examplesIf reticulate::py_available()
+#' reticulate::py_module_available("tensorflow")
+#'
 #' # example code
-#' \dontrun{
+#'
 #' library(tensorflow)
 #' library(keras)
-#' #install_keras()
-#' #install_tensorflow()
-#' skip_if_no_tf()
 #'
 #' OdeModel(keras$Model) %py_class% {
 #'  initialize <- function() {
@@ -33,7 +32,7 @@
 #' true_y0 = t(c(2., 0.))
 #' model<- OdeModel()
 #' forward(model, true_y0, tsteps)
-#' }
+#'
 #'
 
 forward <- function(model, inputs, tsteps, return_states = FALSE) {
@@ -72,13 +71,42 @@ helper_func_back<- function(w){
 #' @param outputs The tensor outputs of the forward pass of the Neural ODE.
 #' @param output_gradients The tensor gradients of the loss function.
 #' @import tensorflow
+#' @import reticulate
 #' @return The model input at the last time step.
 #' @return The gradient of loss with respect to the inputs for use with the Adjoint Method.
 #' @return The gradients of loss the neural ODE.
 #' @export
-#' @examples
-#' # example code
+#' @examplesIf reticulate::py_available()
+#' reticulate::py_module_available("tensorflow")
 #'
+#' # example code
+#' # single training example
+#' OdeModel(keras$Model) %py_class% {
+#'  initialize <- function() {
+#'    super$initialize()
+#'    self$block_1 <- layer_dense(units = 50, activation = 'tanh')
+#'    self$block_2 <- layer_dense(units = 2, activation = 'linear')
+#'  }
+#'
+#'  call <- function(inputs) {
+#'    x<- inputs ^ 3
+#'    x <- self$block_1(x)
+#'    self$block_2(x)
+#'  }
+#' }
+#' tsteps <- seq(0, 2.5, by = 2.5/10)
+#' true_y0 = t(c(2., 0.))
+#' model<- OdeModel()
+#' optimizer = tf$keras$optimizers$legacy$Adam(learning_rate = 1e-3)
+#' # single training iteration
+#' pred = forward(model, true_y0, tsteps)
+#' with(tf$GradientTape() %as% tape, {
+#'   tape$watch(pred)
+#'   loss = tf$reduce_mean(tf$abs(pred - inp[[2]]))
+#' })
+#' dLoss = tape$gradient(loss, pred)
+#' list_w = backward(model, tsteps[1:batch_time], pred, output_gradients = dLoss)
+#' optimizer$apply_gradients(zip_lists(list_w[[3]], model$trainable_variables))
 
 backward <- function(model, tsteps, outputs, output_gradients = NULL) {
   grad_weights <- lapply(model$weights, helper_func_back)
