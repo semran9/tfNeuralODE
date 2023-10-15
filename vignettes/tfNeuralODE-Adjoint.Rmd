@@ -8,24 +8,23 @@ vignette: >
 ---
 
 ```{r, include = FALSE}
+has_tensorflow<- reticulate::py_module_available("tensorflow")
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>"
+  comment = "#>",
+  eval = has_tensorflow
 )
 ```
+```{r, eval = !has_tensorflow, echo =FALSE}
+print("No Tensorflow installation detected. Code will not be run.")
+
+```
+
 
 In this example, we're going to train a simple network to learn a spiral using the adjoint method. We start by loading all of the libraries and setting our initial conditions, along with a few constants.
 
 ```{r, results=FALSE}
 library(reticulate)
-if(!py_available()){
-  install_python()
-}
-
-#checking for tensorflow installation
-if(!py_module_available("tensorflow")){
-  tensorflow::install_tensorflow()
-}
 library(tensorflow)
 library(tfNeuralODE)
 library(keras)
