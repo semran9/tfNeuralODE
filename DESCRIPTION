@@ -10,7 +10,7 @@ Description: Provides a framework for the creation and use of Neural ordinary
     and present a novel way of learning differential systems from data. 
 License: MIT + file LICENSE
 Encoding: UTF-8
-Imports: tensorflow, keras, reticulate
+Imports: tensorflow, keras, reticulate, deSolve
 RoxygenNote: 7.2.3
 Suggests: 
     knitr,

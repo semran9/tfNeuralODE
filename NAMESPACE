@@ -2,6 +2,7 @@
 
 export(backward)
 export(forward)
+import(deSolve)
 import(keras)
 import(reticulate)
 import(tensorflow)

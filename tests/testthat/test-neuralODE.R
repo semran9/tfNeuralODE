@@ -43,3 +43,16 @@ test_that("Forward works", {
   x<- forward(ode_fun, inputs =  y,  tsteps = c(0, 0.25))
   expect_equal(as.numeric(x[1,][1]), -0.125438, tolerance = 0.01)
 })
+test_that("Backward works", {
+  skip_if_no_tf()
+  ode_fun<- function(u){
+    r = u ^ 3
+    true_A = rbind(c(-0.1, 2.0), c(-2.0, -0.1))
+    du <- r %*% (true_A)
+    return(as.matrix(du))
+  }
+  y<- tf$cast(t(as.matrix(c(2, 0))), dtype = tf$float32)
+  x<- forward(ode_fun, inputs =  y,  tsteps = c(0, 0.25))
+  expect_equal(as.numeric(x[1,][1]), -0.125438, tolerance = 0.01)
+})
+

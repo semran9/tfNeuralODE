@@ -24,7 +24,7 @@ library(deSolve)
 # constants
 data_size = 1000
 batch_time = 20 # this seems to works the best ...
-niters = 1000
+niters = 200
 batch_size = 16
 ```
 
@@ -87,17 +87,18 @@ get_batch<- function(prob_trueode, tsteps){
 }
 ```
 
-Now we can train our neural ODE, using naive backpropagation. This process will output a lot every 200 iterations.
-```{r}
+Now we can train our neural ODE, using naive backpropagation. This process will output a plot every 100 iterations. This is not run by default, due to the length of time needed.
+```{r, eval=FALSE}
 # Training Neural ODE
 for(i in 1:niters){
-  # print(paste("Iteration", i, "out of", niters, "iterations."))
+  #print(paste("Iteration", i, "out of", niters, "iterations."))
   inp = get_batch(prob_trueode[,2:3], tsteps)
   pred = forward(model, inputs = inp[[1]], tsteps = tsteps[1:batch_time])
   with(tf$GradientTape() %as% tape, {
     tape$watch(pred)
     loss = tf$reduce_mean(tf$abs(pred - inp[[2]]))
   })
+  #print(paste("loss:", as.numeric(loss)))
   dLoss = tape$gradient(loss, pred)
   list_w = backward(model, tsteps[1:batch_time], pred, output_gradients = dLoss)
   optimizer$apply_gradients(zip_lists(list_w[[3]], model$trainable_variables))
@@ -108,7 +109,7 @@ for(i in 1:niters){
                      tsteps = tsteps, return_states = TRUE)
     pred_y_c<- k_concatenate(pred_y[[2]], 1)
     p_m<- as.matrix(pred_y_c)
-    plot(p_m, main = paste("Iteration", i), type = "l", col = "red")
+    plot(p_m, main = paste("iteration", i), type = "l", col = "red")
     lines(prob_trueode[,2], prob_trueode[,3], col = "blue")
   }
 }
