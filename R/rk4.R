@@ -6,6 +6,7 @@
 #' @returns A list containing a new time and the numerical integration of of the
 #' function across the time step to the new time.
 #' @import tensorflow
+#' @export
 #' @examplesIf reticulate::py_available()
 #' reticulate::py_module_available("tensorflow")
 #' # example code

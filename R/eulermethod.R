@@ -3,6 +3,7 @@
 #' @param dh_list description
 #' @param dt The time step to update the initial state with.
 #' @returns The updated state of the ODE.
+#' @keywords internal
 euler_update <- function(h_list, dh_list, dt) {
   output = list()
   for(i in 1:length(h_list)){
@@ -18,7 +19,7 @@ euler_update <- function(h_list, dh_list, dt) {
 #' @param state A list that defines the current state of the ODE, with one entry
 #' being a number, and the other being a tensor which describes the function state.
 #' @returns A list that describes the updated state of the ODE.
-#'
+#' @keywords internal
 euler_step <- function(func, dt, state) {
   dh <- list(1.0, func(state[[2]]))
   updated_state <- euler_update(state, dh, dt)

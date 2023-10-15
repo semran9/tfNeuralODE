@@ -132,11 +132,12 @@ backward <- function(model, tsteps, outputs, output_gradients = NULL) {
   return(list(inputs, dLdInputs, dLdWeights))
 }
 
-#' Solve the backwards dynamics of the Neural ODE
+#' Internal function to solve the backwards dynamics of the Neural ODE
 #' @param state The current state of the differential equation
 #' @param model The neural network that defines the Neural ODE.
 #' @returns Returns a list of the number 1, the new backwards state of the differential equation and the gradients calculated for the network.
 #' @import tensorflow
+#' @keywords internal
 
 backward_dynamics<- function(state, model){
   t = state[[1]]
@@ -156,11 +157,13 @@ backward_dynamics<- function(state, model){
   return(c(1, ht_new, gradients))
 }
 
-#' Custom RK4 solver for solving the backward pass of the Neural ODE.
+#' Custom internal RK4 solver for solving the backward pass of the Neural ODE.
 #' @param backward_dynamics The backward dynamics function for the Neural ODE.
 #' @param dt The time step to solve the ODE on.
 #' @param state The current state of the differential equation.
 #' @param model The neural network that defines the Neural ODE.
+#' @return An output list with the updated backwards state.
+#' @keywords internal
 
 rk4_step_backwards<- function(backward_dynamics, dt, state, model){
   k1 <- backward_dynamics(state, model)

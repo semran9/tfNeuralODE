@@ -2,7 +2,7 @@
 % Please edit documentation in R/neuralODE.R
 \name{rk4_step_backwards}
 \alias{rk4_step_backwards}
-\title{Custom RK4 solver for solving the backward pass of the Neural ODE.}
+\title{Custom internal RK4 solver for solving the backward pass of the Neural ODE.}
 \usage{
 rk4_step_backwards(backward_dynamics, dt, state, model)
 }
@@ -16,5 +16,5 @@ rk4_step_backwards(backward_dynamics, dt, state, model)
 \item{model}{The neural network that defines the Neural ODE.}
 }
 \description{
-Custom RK4 solver for solving the backward pass of the Neural ODE.
+Custom internal RK4 solver for solving the backward pass of the Neural ODE.
 }
