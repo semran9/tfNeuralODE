@@ -14,13 +14,24 @@ knitr::opts_chunk$set(
 )
 ```
 
-In this example, we're going to train a simple network to learn a spiral using the adjoint method. We start by loading all of the libraries and setting our initial conditions, along with a few constants
+In this example, we're going to train a simple network to learn a spiral using the adjoint method. We start by loading all of the libraries and setting our initial conditions, along with a few constants.
 
 ```{r setup}
+library(reticulate)
+if(!py_available()){
+  install_python()
+}
 library(tfNeuralODE)
 library(keras)
 library(tensorflow)
 library(deSolve)
+#checking for tensorflow and keras installation
+if(!py_module_available("tensorflow")){
+  install_tensorflow()
+}
+if(!py_module_available("keras")){
+  install_keras()
+}
 # iterations, time span (layers)
 niters = 25
 t = seq(0, 25, by = 25/100)

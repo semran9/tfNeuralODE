@@ -1,6 +1,6 @@
 Package: tfNeuralODE
 Type: Package
-Title: Create Neural Ordinary Differential Equations in R
+Title: Create Neural Ordinary Differential Equations in R Tensorflow
 Version: 0.1.0
 Author: Shayaan Emran
 Maintainer: Shayaan Emran <shayaan.emran@gmail.com>

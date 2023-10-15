@@ -17,10 +17,23 @@ knitr::opts_chunk$set(
 This vignette runs through a small example of how to use tfNeuralODE to learn differential equations. We start by importing all of the correct packages, and instantiating a few constants.
 
 ```{r setup}
+# initial checks for python
+library(reticulate)
+if(!py_available()){
+  install_python()
+}
+
 library(tfNeuralODE)
 library(keras)
 library(tensorflow)
 library(deSolve)
+# checks for tensorflow and keras
+if(!py_module_available("tensorflow")){
+  install_tensorflow()
+}
+if(!py_module_available("keras")){
+  install_keras()
+}
 # constants
 data_size = 1000
 batch_time = 20 # this seems to works the best ...

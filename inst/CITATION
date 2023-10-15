@@ -1,0 +1,6 @@
+bibentry(
+  title = "tfNeuralODE: Create Neural Ordinary Differential Equations in R Tensorflow",
+  author = "Shayaan Emran",
+  year = "2023",
+  note = "https://semran9.github.io/tfNeuralODE/",
+)
