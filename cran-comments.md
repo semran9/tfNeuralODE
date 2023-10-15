@@ -7,7 +7,7 @@ programming interface) names in single quotes in title and description.
 e.g: --> 'Tensorflow', 'Keras'
 Please note that package names are case sensitive.
 
-* The references to R Tensorflow and Keras have been changed to 'tensorflow' in accordance with the R package name.
+* The references to R Tensorflow and Keras have been changed to 'tensorflow' and 'keras' in accordance with the respective R package names.
 
 Please proof-read your description text.
 Currently it reads: "... and present a novel way of  learning and ..."
