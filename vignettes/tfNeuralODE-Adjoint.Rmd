@@ -21,11 +21,12 @@ library(reticulate)
 if(!py_available()){
   install_python()
 }
-library(tensorflow)
+
 #checking for tensorflow installation
 if(!py_module_available("tensorflow")){
-  install_tensorflow()
+  tensorflow::install_tensorflow()
 }
+library(tensorflow)
 library(tfNeuralODE)
 library(keras)
 library(deSolve)
