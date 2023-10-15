@@ -7,14 +7,23 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
+```{r, include = FALSE}
+has_tensorflow<- reticulate::py_module_available("tensorflow")
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  eval = has_tensorflow
+)
+```
+```{r, eval = !has_tensorflow, echo =FALSE}
+print("No Tensorflow installation detected. Code will not be run.")
 
-
+```
 
 
 In this example, we're going to train a simple network to learn a new spiral trajectory using the adjoint method to train. We start by loading all of the libraries and setting our initial conditions, along with a few constants.
 
-
-```r
+```{r, results=FALSE}
 library(reticulate)
 library(tensorflow)
 library(tfNeuralODE)
@@ -33,8 +42,7 @@ hN_target = tf$cast(t(c(0., 0.5)), dtype = tf$float32)
 
 We solve for the initial trajectory.
 
-
-```r
+```{r}
 trueODEfunc<- function(du, u, p, t){
   true_A = rbind(c(-0.1, 1.0), c(-0.2, -0.1))
   du <- (u) %*% true_A
@@ -48,8 +56,7 @@ init_path <- lsode(func = trueODEfunc, y = c(1., 0.), times = t)
 
 Now we instantiate a very simple ODE model following that initial trajectory and an optimizer to train the ODE model with.
 
-
-```r
+```{r}
 # ODE Model
 
 optimizer = tf$keras$optimizers$legacy$SGD(learning_rate=1e-2, momentum=0.95)
@@ -60,13 +67,13 @@ OdeModel(keras$Model) %py_class% {
   }
 }
 model<- OdeModel()
+
 ```
 
 
 Now we train the model, using 25 iterations. Each 5 iterations, the plot of the ODE will be produced.
 
-
-```r
+```{r, name = "adjoint"}
 for(i in 1:niters){
   print(paste("Iteration", i, "out of", niters, "iterations."))
   with(tf$GradientTape() %as% tape, {
@@ -91,57 +98,5 @@ for(i in 1:niters){
     lines(init_path[,2], init_path[,3], col = "blue")
   }
 }
-#> [1] "Iteration 1 out of 25 iterations."
 ```
-
-![plot of iteration 1](unnamed-chunk-17-1.png)
-
-```
-#> [1] "Iteration 2 out of 25 iterations."
-#> [1] "Iteration 3 out of 25 iterations."
-#> [1] "Iteration 4 out of 25 iterations."
-#> [1] "Iteration 5 out of 25 iterations."
-```
-
-![plot of iteration 5](unnamed-chunk-17-2.png)
-
-```
-#> [1] "Iteration 6 out of 25 iterations."
-#> [1] "Iteration 7 out of 25 iterations."
-#> [1] "Iteration 8 out of 25 iterations."
-#> [1] "Iteration 9 out of 25 iterations."
-#> [1] "Iteration 10 out of 25 iterations."
-```
-
-![plot of iteration 10](unnamed-chunk-17-3.png)
-
-```
-#> [1] "Iteration 11 out of 25 iterations."
-#> [1] "Iteration 12 out of 25 iterations."
-#> [1] "Iteration 13 out of 25 iterations."
-#> [1] "Iteration 14 out of 25 iterations."
-#> [1] "Iteration 15 out of 25 iterations."
-```
-
-![plot of iteration 15](unnamed-chunk-17-4.png)
-
-```
-#> [1] "Iteration 16 out of 25 iterations."
-#> [1] "Iteration 17 out of 25 iterations."
-#> [1] "Iteration 18 out of 25 iterations."
-#> [1] "Iteration 19 out of 25 iterations."
-#> [1] "Iteration 20 out of 25 iterations."
-```
-
-![plot of iteration 20](unnamed-chunk-17-5.png)
-
-```
-#> [1] "Iteration 21 out of 25 iterations."
-#> [1] "Iteration 22 out of 25 iterations."
-#> [1] "Iteration 23 out of 25 iterations."
-#> [1] "Iteration 24 out of 25 iterations."
-#> [1] "Iteration 25 out of 25 iterations."
-```
-
-![plot of iteration 25](unnamed-chunk-17-6.png)
 
