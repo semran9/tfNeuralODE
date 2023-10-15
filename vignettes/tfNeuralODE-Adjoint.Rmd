@@ -25,13 +25,6 @@ library(tfNeuralODE)
 library(keras)
 library(tensorflow)
 library(deSolve)
-#checking for tensorflow and keras installation
-if(!py_module_available("tensorflow")){
-  install_tensorflow()
-}
-if(!py_module_available("keras")){
-  install_keras()
-}
 # iterations, time span (layers)
 niters = 25
 t = seq(0, 25, by = 25/100)

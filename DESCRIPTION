@@ -6,8 +6,9 @@ Authors@R: person("Shayaan", "Emran", email = "shayaan.emran@gmail.com", role = 
 Maintainer: Shayaan Emran <shayaan.emran@gmail.com>
 Description: Provides a framework for the creation and use of Neural ordinary
     differential equations with R Tensorflow and Keras. The idea of Neural 
-    ordinary differential equations come from <doi:10.48550/arXiv.1806.07366>,
-    and present a novel way of learning differential systems from data. 
+    ordinary differential equations come from Chen et al (2018)
+    <doi:10.48550/arXiv.1806.07366>, and present a novel way of 
+    learning and solving differential systems. 
 License: MIT + file LICENSE
 Encoding: UTF-8
 Imports: tensorflow, keras, reticulate, deSolve

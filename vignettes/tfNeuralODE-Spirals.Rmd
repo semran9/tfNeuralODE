@@ -27,13 +27,6 @@ library(tfNeuralODE)
 library(keras)
 library(tensorflow)
 library(deSolve)
-# checks for tensorflow and keras
-if(!py_module_available("tensorflow")){
-  install_tensorflow()
-}
-if(!py_module_available("keras")){
-  install_keras()
-}
 # constants
 data_size = 1000
 batch_time = 20 # this seems to works the best ...
