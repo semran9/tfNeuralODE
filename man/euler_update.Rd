@@ -19,3 +19,4 @@ The updated state of the ODE.
 \description{
 A Euler method state updater.
 }
+\keyword{internal}

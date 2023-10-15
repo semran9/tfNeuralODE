@@ -20,3 +20,4 @@ A list that describes the updated state of the ODE.
 \description{
 A function to employ the Euler Method to solve an ODE.
 }
+\keyword{internal}

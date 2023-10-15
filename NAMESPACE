@@ -2,6 +2,7 @@
 
 export(backward)
 export(forward)
+export(rk4_step)
 import(deSolve)
 import(keras)
 import(reticulate)

@@ -2,7 +2,7 @@
 % Please edit documentation in R/neuralODE.R
 \name{backward_dynamics}
 \alias{backward_dynamics}
-\title{Solve the backwards dynamics of the Neural ODE}
+\title{Internal function to solve the backwards dynamics of the Neural ODE}
 \usage{
 backward_dynamics(state, model)
 }
@@ -15,5 +15,6 @@ backward_dynamics(state, model)
 Returns a list of the number 1, the new backwards state of the differential equation and the gradients calculated for the network.
 }
 \description{
-Solve the backwards dynamics of the Neural ODE
+Internal function to solve the backwards dynamics of the Neural ODE
 }
+\keyword{internal}

@@ -15,6 +15,10 @@ rk4_step_backwards(backward_dynamics, dt, state, model)
 
 \item{model}{The neural network that defines the Neural ODE.}
 }
+\value{
+An output list with the updated backwards state.
+}
 \description{
 Custom internal RK4 solver for solving the backward pass of the Neural ODE.
 }
+\keyword{internal}
