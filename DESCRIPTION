@@ -2,7 +2,7 @@ Package: tfNeuralODE
 Type: Package
 Title: Create Neural Ordinary Differential Equations in R Tensorflow
 Version: 0.1.0
-Author: Shayaan Emran
+Authors@R: person("Shayaan", "Emran", email = "shayaan.emran@gmail.com", role = c("aut", "cre", "cph"))
 Maintainer: Shayaan Emran <shayaan.emran@gmail.com>
 Description: Provides a framework for the creation and use of Neural ordinary
     differential equations with R Tensorflow and Keras. The idea of Neural 
@@ -18,3 +18,5 @@ Suggests:
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
 VignetteBuilder: knitr
+URL: https://github.com/semran9/tfNeuralODE
+BugReports: https://github.com/semran9/tfNeuralODE/issues
