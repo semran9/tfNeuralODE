@@ -5,8 +5,11 @@
 #' being 1, and the second being a tensor that represents state
 #' @returns A list containing a new time and the numerical integration of of the
 #' function across the time step to the new time.
-#' @examples
+#' @examplesIf reticulate::py_available()
+#' reticulate::py_module_available("tensorflow")
+#'
 #' # example code
+#' library(tensorflow)
 #' ode_fun<- function(u){
 #'   r = u ^ 3
 #'   true_A = rbind(c(-0.1, 2.0), c(-2.0, -0.1))

@@ -22,6 +22,7 @@ library(reticulate)
 if(!py_available()){
   install_python()
 }
+library(tensorflow)
 #checking for tensorflow and keras installation
 if(!py_module_available("tensorflow")){
   install_tensorflow()
@@ -29,7 +30,6 @@ if(!py_module_available("tensorflow")){
 
 library(tfNeuralODE)
 library(keras)
-library(tensorflow)
 library(deSolve)
 
 # constants
